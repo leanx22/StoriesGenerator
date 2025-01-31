@@ -1,0 +1,13 @@
+[
+  {"actionName": "correr"},
+  {"actionName": "pintar"},
+  {"actionName": "asesinar"},
+  {"actionName": "cantar"},
+  {"actionName": "escalar"},
+  {"actionName": "tomar"},
+  {"actionName": "observar"},
+  {"actionName": "caminar"},
+  {"actionName": "jugar"},
+  {"actionName": "eliminar"},
+  {"actionName": "desintegrar"}
+]

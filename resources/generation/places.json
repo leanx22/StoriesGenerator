@@ -1,0 +1,25 @@
+[
+  {"name": "castillo", "gender": "MALE", "areMany": "false"},
+  {"name": "lago", "gender": "MALE", "areMany": "false"},
+  {"name": "reino", "gender": "MALE", "areMany": "false"},
+  {"name": "Perú", "gender": "MALE", "areMany": "false"},
+  {"name": "bosque", "gender": "MALE", "areMany": "false"},
+  {"name": "edificio", "gender": "MALE", "areMany": "false"},
+  {"name": "galpón", "gender": "MALE", "areMany": "false"},
+  {"name": "hotel", "gender": "MALE", "areMany": "false"},
+  {"name": "desierto", "gender": "MALE", "areMany": "false"},
+  {"name": "pelotero", "gender": "MALE", "areMany": "false"},
+
+
+  {"name": "catedral", "gender": "FEMALE", "areMany": "false"},
+  {"name": "capital", "gender": "FEMALE", "areMany": "false"},
+  {"name": "iglesia", "gender": "FEMALE", "areMany": "false"},
+  {"name": "casa", "gender": "FEMALE", "areMany": "false"},
+  {"name": "granja", "gender": "FEMALE", "areMany": "false"},
+  {"name": "calle", "gender": "FEMALE", "areMany": "false"},
+  {"name": "estación de tren", "gender": "FEMALE", "areMany": "false"},
+  {"name": "montaña", "gender": "FEMALE", "areMany": "false"},
+  {"name": "biblioteca", "gender": "FEMALE", "areMany": "false"},
+  {"name": "cueva", "gender": "FEMALE", "areMany": "false"}
+
+]

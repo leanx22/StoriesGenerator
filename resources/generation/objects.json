@@ -1,0 +1,52 @@
+[
+  {"name": "espada", "gender": "FEMALE", "areMany": "false"},
+  {"name": "puerta", "gender": "FEMALE", "areMany": "false"},
+  {"name": "hamburgesa", "gender": "FEMALE", "areMany": "false"},
+  {"name": "camioneta", "gender": "FEMALE", "areMany": "false"},
+  {"name": "consola", "gender": "FEMALE", "areMany": "false"},
+  {"name": "computadora", "gender": "FEMALE", "areMany": "false"},
+  {"name": "IA", "gender": "FEMALE", "areMany": "false"},
+  {"name": "lapicera", "gender": "FEMALE", "areMany": "false"},
+  {"name": "boligoma", "gender": "FEMALE", "areMany": "false"},
+  {"name": "galletita", "gender": "FEMALE", "areMany": "false"},
+  {"name": "remera", "gender": "FEMALE", "areMany": "false"},
+  {"name": "estufa", "gender": "FEMALE", "areMany": "false"},
+  {"name": "estanteria", "gender": "FEMALE", "areMany": "false"},
+  {"name": "cámara de video", "gender": "FEMALE", "areMany": "false"},
+  {"name": "estanteria", "gender": "FEMALE", "areMany": "false"},
+  {"name": "mano", "gender": "FEMALE", "areMany": "false"},
+  {"name": "estatua", "gender": "FEMALE", "areMany": "false"},
+  {"name": "alcancía", "gender": "FEMALE", "areMany": "false"},
+  {"name": "moto", "gender": "FEMALE", "areMany": "false"},
+  {"name": "milanesa", "gender": "FEMALE", "areMany": "false"},
+  {"name": "pistola", "gender": "FEMALE", "areMany": "false"},
+  {"name": "piedra", "gender": "FEMALE", "areMany": "false"},
+
+  {"name": "armas", "gender": "FEMALE", "areMany": "true"},
+  {"name": "runas", "gender": "FEMALE", "areMany": "true"},
+
+
+  {"name": "regalo", "gender": "MALE", "areMany": "false"},
+  {"name": "teclado", "gender": "MALE", "areMany": "false"},
+  {"name": "micrófono", "gender": "MALE", "areMany": "false"},
+  {"name": "módem de Movistar", "gender": "MALE", "areMany": "false"},
+  {"name": "papel", "gender": "MALE", "areMany": "false"},
+  {"name": "libro", "gender": "MALE", "areMany": "false"},
+  {"name": "cuchillo", "gender": "MALE", "areMany": "false"},
+  {"name": "ojo", "gender": "MALE", "areMany": "false"},
+  {"name": "joystick", "gender": "MALE", "areMany": "false"},
+  {"name": "disco duro", "gender": "MALE", "areMany": "false"},
+  {"name": "ventilador", "gender": "MALE", "areMany": "false"},
+  {"name": "vehículo", "gender": "MALE", "areMany": "false"},
+  {"name": "mate", "gender": "MALE", "areMany": "false"},
+  {"name": "tereré", "gender": "MALE", "areMany": "false"},
+  {"name": "lápiz", "gender": "MALE", "areMany": "false"},
+
+
+  {"name": "fideos", "gender": "MALE", "areMany": "true"},
+  {"name": "ñoquis", "gender": "MALE", "areMany": "true"},
+  {"name": "libros", "gender": "MALE", "areMany": "true"}
+
+
+
+]
