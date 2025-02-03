@@ -1,11 +1,11 @@
 package com.RandomStories.Leandro.generator;
 
-import com.RandomStories.Leandro.model.classes.Adjective;
-import com.RandomStories.Leandro.model.classes.Place;
-import com.RandomStories.Leandro.model.classes.StoryObject;
+import com.RandomStories.Leandro.controller.AdjectivesManager;
+import com.RandomStories.Leandro.controller.VerbsManager;
+import com.RandomStories.Leandro.model.classes.*;
+import com.RandomStories.Leandro.model.classes.Character;
 import com.RandomStories.Leandro.model.enumerators.GeneratorStatus;
 import com.RandomStories.Leandro.utils.FileUtils;
-import com.RandomStories.Leandro.model.classes.Character;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,17 +18,23 @@ public class StoryGenerator implements Runnable{
 
     private final Random random;
     private final StringBuilder sb;
+    private final AdjectivesManager adjectiveManager;
+    private final VerbsManager verbManager;
+
 
     private String generatedStory;
     private Character[] characters;
     private Place[] places;
     private StoryObject[] objects;
     private Adjective[] adjectives;
+    private String[] times;
 
     private StoryGenerator(){
         listeners = new ArrayList<>();
         random = new Random();
         sb = new StringBuilder();
+        adjectiveManager = new AdjectivesManager();
+        verbManager = new VerbsManager();
         generatedStory = "";
     }
 
@@ -46,6 +52,7 @@ public class StoryGenerator implements Runnable{
             if(places == null){places = FileUtils.getPlaces();}
             if(objects == null){objects = FileUtils.getObjects();}
             if(adjectives == null){adjectives = FileUtils.getAdjectives();}
+            if(times == null){times = FileUtils.getTimes();}
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,10 +60,8 @@ public class StoryGenerator implements Runnable{
 
     @Override
     public void run() {
-        System.out.println("toy corriendo");
         loadAssets();
         callStatusListeners(GeneratorStatus.CREATING);
-        System.out.println("toy creando");
         createStory();
         callStatusListeners(GeneratorStatus.DONE);
     }
@@ -66,22 +71,30 @@ public class StoryGenerator implements Runnable{
     }
 
     private void createStory(){
-        sb.setLength(0); //restarts the string builder.
+        //restart StringBuilder.
+        sb.setLength(0);
 
-        String time = "Había una vez, ";
-        sb.append(time);
+        //Select all elements for the story
+        String time = times[random.nextInt(times.length)];
 
         Character mainCharacter = getRandomCharacter();
-        sb.append(" "+mainCharacter.getUnityPronoun()+" "+mainCharacter);
-
-        Adjective mainCharacterAdjective = adjectives[random.nextInt(adjectives.length)];
-        sb.append(" "+mainCharacterAdjective);
+        Adjective mainCharacterAdjective = adjectiveManager.getRandomAdjective(mainCharacter);
 
         Place mainPlace = places[random.nextInt(places.length)];
-        sb.append(" en "+mainPlace.getSingularPronoun()+" "+mainPlace);
+
+        Verb mainAction = verbManager.getRandomVerb();
+
+        sb.append(time).append(",");
+        sb.append(" ").append(mainCharacter.getUnityPronoun()).append(" ").append(mainCharacter);
+        sb.append(" ").append(mainCharacterAdjective);
+        sb.append(" en ").append(mainPlace.getSingularPronoun()).append(" ").append(mainPlace);
+        if(mainCharacter.areMany()){
+            sb.append(", ").append(mainAction.getImperfectoPlural());
+        }else{
+            sb.append(", ").append(mainAction.getImperfecto());
+        }
 
         generatedStory = sb.toString();
-        System.out.println("generación: "+generatedStory);
     }
 
     private Character getRandomCharacter(){
@@ -98,7 +111,6 @@ public class StoryGenerator implements Runnable{
     }
 
     private void callStatusListeners(GeneratorStatus s){
-        System.out.println("LLAMANDO LISTENERS - ESTADO: "+s);
         this.listeners.forEach(e->e.onStatusChanged(s));
     }
 

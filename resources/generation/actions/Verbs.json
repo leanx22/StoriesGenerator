@@ -1,0 +1,21 @@
+[
+  {"infinitivo": "buscar", "simple": "buscó", "simplePlural": "buscaron", "imperfecto": "buscaba"},
+  {"infinitivo": "correr", "simple": "corrió", "simplePlural": "corrieron", "imperfecto": "corría"},
+  {"infinitivo": "asesinar", "simple": "asesinó", "simplePlural": "asesinaron", "imperfecto": "asesinaba"},
+  {"infinitivo": "demandar", "simple": "demandó", "simplePlural": "demandaban", "imperfecto": "demandaba"},
+  {"infinitivo": "filetear", "simple": "fileteó", "simplePlural": "filetearon", "imperfecto": "fileteaba"},
+  {"infinitivo": "detonar", "simple": "detonó", "simplePlural": "detonaron", "imperfecto": "detonaba"},
+  {"infinitivo": "dibujar", "simple": "dibujó", "simplePlural": "dibujaron", "imperfecto": "dibujaba"},
+  {"infinitivo": "contruir", "simple": "construyó", "simplePlural": "construyeron", "imperfecto": "construía"},
+  {"infinitivo": "pintar", "simple": "pintó", "simplePlural": "pintaron", "imperfecto": "pintaba"},
+  {"infinitivo": "explotar", "simple": "explotó", "simplePlural": "explotaron", "imperfecto": "explotaba"},
+  {"infinitivo": "programar", "simple": "programó", "simplePlural": "programaron", "imperfecto": "programaba"},
+  {"infinitivo": "denunciar", "simple": "denunció", "simplePlural": "denunciaron", "imperfecto": "denunciaba"},
+  {"infinitivo": "anunciar", "simple": "anunció", "simplePlural": "anunciaron", "imperfecto": "asesinaba"},
+  {"infinitivo": "vender", "simple": "vendió", "simplePlural": "vendieron", "imperfecto": "vendía"},
+  {"infinitivo": "preparar", "simple": "preparó", "simplePlural": "prepararon", "imperfecto": "preparaba"},
+  {"infinitivo": "cocinar", "simple": "cocinó", "simplePlural": "cocinaron", "imperfecto": "cocinaba"},
+  {"infinitivo": "viajar", "simple": "viajó", "simplePlural": "viajaron", "imperfecto": "viajaba"},
+  {"infinitivo": "limpiar", "simple": "limpió", "simplePlural": "limpiaron", "imperfecto": "limpiaba"},
+  {"infinitivo": "tomar", "simple": "tomó", "simplePlural": "tomaron", "imperfecto": "tomaba"}
+]

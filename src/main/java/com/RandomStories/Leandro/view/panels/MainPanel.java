@@ -23,7 +23,6 @@ public class MainPanel extends JPanel {
     }
 
     private void onStoryGenerationComplete(GeneratorStatus status){
-        System.out.println("upa, pasó algo: "+status);
         switch (status){
             case DONE -> display.print(StoryGenerator.getInstance().getLastStory());
         }

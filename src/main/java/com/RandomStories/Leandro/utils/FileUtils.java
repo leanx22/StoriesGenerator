@@ -1,8 +1,7 @@
 package com.RandomStories.Leandro.utils;
 
-import com.RandomStories.Leandro.model.classes.Adjective;
-import com.RandomStories.Leandro.model.classes.Place;
-import com.RandomStories.Leandro.model.classes.StoryObject;
+import com.RandomStories.Leandro.model.classes.*;
+import com.RandomStories.Leandro.model.classes.Character;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -11,7 +10,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.List;
-import com.RandomStories.Leandro.model.classes.Character;
 
 public final class FileUtils {
 
@@ -59,9 +57,34 @@ public final class FileUtils {
             Type listType = new TypeToken<List<Adjective>>(){}.getType();
 
             List<Adjective> adjectives = gson.fromJson(reader, listType);
+            System.out.println("Los adjetivos tienen "+ (long) adjectives.size()+" elementos!");
             return adjectives.toArray(new Adjective[0]);
         }catch (IOException e){
             throw new IOException("No se pudo cargar los objetos!");
+        }
+    }
+
+    public static String[] getTimes() throws IOException{
+        try(Reader reader = new FileReader(Constants.TIMES_FILE_PATH)){
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<String>>(){}.getType();
+
+            List<String> times = gson.fromJson(reader, listType);
+            return times.toArray(new String[0]);
+        }catch (IOException e){
+            throw new IOException("No se pudo cargar los tiempos!");
+        }
+    }
+
+    public static Verb[] getVerbs() throws IOException{
+        try(Reader reader = new FileReader(Constants.VERBS_FILE_PATH)){
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<Verb>>(){}.getType();
+
+            List<Verb> verbs = gson.fromJson(reader, listType);
+            return verbs.toArray(new Verb[0]);
+        }catch (IOException e){
+            throw new IOException("No se pudo cargar los verbos!");
         }
     }
 

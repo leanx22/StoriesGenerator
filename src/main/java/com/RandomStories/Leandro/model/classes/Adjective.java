@@ -4,22 +4,22 @@ import com.RandomStories.Leandro.model.enumerators.Gender;
 import com.RandomStories.Leandro.model.enumerators.PluralRule;
 
 public class Adjective {
-    private String adjective;
+    private String name;
     private String irregularPluralForm;
-    private Gender gender;
-    private PluralRule pRule;
+    private final Gender gender;
+    private final PluralRule pluralRule;
 
 
     public Adjective(String adj, Gender adjGender, PluralRule rule){
-        this.adjective = adj;
+        this.name = adj;
         this.gender = adjGender;
-        this.pRule = rule;
+        this.pluralRule = rule;
     }
 
     public Adjective(String adj, Gender adjGender, PluralRule rule, String irregularPluralForm){
-        this.adjective = adj;
+        this.name = adj;
         this.gender = adjGender;
-        this.pRule = rule;
+        this.pluralRule = rule;
         this.irregularPluralForm = irregularPluralForm;
     }
 
@@ -28,15 +28,17 @@ public class Adjective {
     }
 
     public String toString(){
-        return adjective;
+        return name;
     }
 
-    public String toPlural(){
-        switch (pRule){
-            case S -> { return adjective+"s"; }
-            case ES -> { return adjective+"es"; }
-            case IRREGULAR -> { return this.irregularPluralForm; }
-            default -> {return this.adjective;}
+    ///Transform the current Adjective to its plural form.
+    ///THIS CANNOT BE UNDONE.
+    public void toPlural(){
+        System.out.println("Se llamó a toPlural(): Adjetivo: "+name+" Regla: "+pluralRule);
+        switch (pluralRule){
+            case S -> { name = name+"s"; }
+            case ES -> { name = name +"es"; }
+            case IRREGULAR -> { name = this.irregularPluralForm; }
         }
     }
 }
