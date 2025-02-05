@@ -32,7 +32,6 @@ public class ControlsPanel extends JPanel {
     }
 
     private void generate(){
-        System.out.println("intentando generar una historia");
         Thread t = new Thread(StoryGenerator.getInstance());
         if(t.isAlive()){
             System.out.println("Ya se está ejecutando");

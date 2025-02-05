@@ -41,6 +41,7 @@
   {"name": "mate", "gender": "MALE", "areMany": "false"},
   {"name": "tereré", "gender": "MALE", "areMany": "false"},
   {"name": "lápiz", "gender": "MALE", "areMany": "false"},
+  {"name": "asesinato", "gender": "MALE", "areMany": "false"},
 
 
   {"name": "fideos", "gender": "MALE", "areMany": "true"},

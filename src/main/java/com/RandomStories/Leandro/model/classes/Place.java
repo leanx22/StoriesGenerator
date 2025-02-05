@@ -4,7 +4,7 @@ import com.RandomStories.Leandro.model.enumerators.Gender;
 
 public class Place extends StoryObject{
 
-    public Place(String placeName, Gender gender, boolean isPlural, String adjective){
+    public Place(String placeName, Gender gender, boolean isPlural, Adjective adjective){
         super(placeName, gender, isPlural, adjective);
     }
 

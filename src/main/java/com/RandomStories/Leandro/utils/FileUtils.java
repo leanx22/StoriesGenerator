@@ -57,7 +57,6 @@ public final class FileUtils {
             Type listType = new TypeToken<List<Adjective>>(){}.getType();
 
             List<Adjective> adjectives = gson.fromJson(reader, listType);
-            System.out.println("Los adjetivos tienen "+ (long) adjectives.size()+" elementos!");
             return adjectives.toArray(new Adjective[0]);
         }catch (IOException e){
             throw new IOException("No se pudo cargar los objetos!");
@@ -85,6 +84,18 @@ public final class FileUtils {
             return verbs.toArray(new Verb[0]);
         }catch (IOException e){
             throw new IOException("No se pudo cargar los verbos!");
+        }
+    }
+
+    public static String[] getTransitions() throws IOException{
+        try(Reader reader = new FileReader(Constants.TRANSITIONS_FILE_PATH)){
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<String>>(){}.getType();
+
+            List<String> transitions = gson.fromJson(reader, listType);
+            return transitions.toArray(new String[0]);
+        }catch (IOException e){
+            throw new IOException("No se pudo cargar las transiciones!");
         }
     }
 

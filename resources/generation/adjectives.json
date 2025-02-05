@@ -20,6 +20,7 @@
   {"name": "divertido", "gender": "MALE", "pluralRule": "S"},
   {"name": "depresivo", "gender": "MALE", "pluralRule": "S"},
   {"name": "argentino", "gender": "MALE", "pluralRule": "S"},
+  {"name": "peruano", "gender": "MALE", "pluralRule": "S"},
   {"name": "energético", "gender": "MALE", "pluralRule": "S"},
   {"name": "relogioso", "gender": "MALE", "pluralRule": "S"},
   {"name": "devoto", "gender": "MALE", "pluralRule": "S"},

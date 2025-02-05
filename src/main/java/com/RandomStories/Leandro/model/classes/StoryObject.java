@@ -5,7 +5,7 @@ import com.RandomStories.Leandro.model.enumerators.Gender;
 public class StoryObject extends Thing{
     protected boolean areMany;
 
-    public StoryObject(String objectName, Gender objectGender, boolean areMany,String objectAdjective){
+    public StoryObject(String objectName, Gender objectGender, boolean areMany,Adjective objectAdjective){
         super(objectName, objectGender, objectAdjective);
         this.areMany = areMany;
     }
@@ -19,6 +19,13 @@ public class StoryObject extends Thing{
         return areMany;
     }
 
+    @Override
+    public String getAdjectiveString() {
+        if(this.areMany){
+            return this.adjective.getPlural();
+        }
+        return this.adjective.toString();
+    }
 
     @Override
     public String getUnityPronoun() {

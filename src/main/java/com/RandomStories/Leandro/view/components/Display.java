@@ -21,7 +21,7 @@ public class Display extends JComponent{
         this.textArea.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
         this.textArea.setLineWrap(true);
         this.textArea.setWrapStyleWord(true);
-        this.textArea.setEnabled(false);
+        //this.textArea.setEnabled(false);
 
         this.scrollPane = new JScrollPane(textArea);
         this.add(scrollPane, BorderLayout.CENTER);

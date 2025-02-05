@@ -10,8 +10,6 @@
   {"infinitivo": "pintar", "simple": "pintó", "simplePlural": "pintaron", "imperfecto": "pintaba"},
   {"infinitivo": "explotar", "simple": "explotó", "simplePlural": "explotaron", "imperfecto": "explotaba"},
   {"infinitivo": "programar", "simple": "programó", "simplePlural": "programaron", "imperfecto": "programaba"},
-  {"infinitivo": "denunciar", "simple": "denunció", "simplePlural": "denunciaron", "imperfecto": "denunciaba"},
-  {"infinitivo": "anunciar", "simple": "anunció", "simplePlural": "anunciaron", "imperfecto": "asesinaba"},
   {"infinitivo": "vender", "simple": "vendió", "simplePlural": "vendieron", "imperfecto": "vendía"},
   {"infinitivo": "preparar", "simple": "preparó", "simplePlural": "prepararon", "imperfecto": "preparaba"},
   {"infinitivo": "cocinar", "simple": "cocinó", "simplePlural": "cocinaron", "imperfecto": "cocinaba"},

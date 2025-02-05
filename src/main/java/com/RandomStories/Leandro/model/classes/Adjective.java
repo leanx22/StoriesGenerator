@@ -9,7 +9,6 @@ public class Adjective {
     private final Gender gender;
     private final PluralRule pluralRule;
 
-
     public Adjective(String adj, Gender adjGender, PluralRule rule){
         this.name = adj;
         this.gender = adjGender;
@@ -31,14 +30,13 @@ public class Adjective {
         return name;
     }
 
-    ///Transform the current Adjective to its plural form.
-    ///THIS CANNOT BE UNDONE.
-    public void toPlural(){
-        System.out.println("Se llamó a toPlural(): Adjetivo: "+name+" Regla: "+pluralRule);
+    public String getPlural(){
         switch (pluralRule){
-            case S -> { name = name+"s"; }
-            case ES -> { name = name +"es"; }
-            case IRREGULAR -> { name = this.irregularPluralForm; }
+            case S -> { return name+"s"; }
+            case ES -> {  return name +"es"; }
+            case IRREGULAR -> {  return this.irregularPluralForm; }
+            default -> {return name;}
         }
     }
+
 }

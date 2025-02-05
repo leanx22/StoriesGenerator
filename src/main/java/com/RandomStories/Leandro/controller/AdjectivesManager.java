@@ -50,18 +50,6 @@ public class AdjectivesManager {
         return allAdjectives.get(random.nextInt(allAdjectives.size()));
     }
 
-    public Adjective getRandomAdjective(Gender gender){
-        Adjective result;
-        if(gender == Gender.MALE){
-            result = maleAdjectives.get(random.nextInt(maleAdjectives.size()));
-        } else if (gender == Gender.FEMALE) {
-            result = femaleAdjectives.get(random.nextInt(femaleAdjectives.size()));
-        }else{
-            result = neutralAdjectives.get(random.nextInt(neutralAdjectives.size()));
-        }
-        return result;
-    }
-
     public Adjective getRandomAdjective(StoryObject object){
         Adjective result;
         if(object.getGender() == Gender.MALE){
@@ -72,9 +60,6 @@ public class AdjectivesManager {
             result = neutralAdjectives.get(random.nextInt(neutralAdjectives.size()));
         }
 
-        if(object.areMany()){
-            result.toPlural();
-        }
         return result;
     }
 }

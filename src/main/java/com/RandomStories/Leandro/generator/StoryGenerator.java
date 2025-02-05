@@ -8,9 +8,7 @@ import com.RandomStories.Leandro.model.enumerators.GeneratorStatus;
 import com.RandomStories.Leandro.utils.FileUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class StoryGenerator implements Runnable{
     private static StoryGenerator instance;
@@ -28,6 +26,7 @@ public class StoryGenerator implements Runnable{
     private StoryObject[] objects;
     private Adjective[] adjectives;
     private String[] times;
+    private String[] transitions;
 
     private StoryGenerator(){
         listeners = new ArrayList<>();
@@ -53,6 +52,7 @@ public class StoryGenerator implements Runnable{
             if(objects == null){objects = FileUtils.getObjects();}
             if(adjectives == null){adjectives = FileUtils.getAdjectives();}
             if(times == null){times = FileUtils.getTimes();}
+            if(transitions == null){transitions = FileUtils.getTransitions();}
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -74,32 +74,72 @@ public class StoryGenerator implements Runnable{
         //restart StringBuilder.
         sb.setLength(0);
 
-        //Select all elements for the story
-        String time = times[random.nextInt(times.length)];
+        Map<String, Object> elements = getNewStoryElements();
+
+        sb.append((String)elements.get("time")).append(", ");
+        Character mainCharacter = (Character)elements.get("mainCharacter");
+        sb.append(mainCharacter.getUnityPronoun()).append(" ").append(mainCharacter).append(" ").append(mainCharacter.getAdjectiveString());
+        Place mainPlace = (Place)elements.get("mainPlace");
+        sb.append(" en ").append(mainPlace.getUnityPronoun()).append(" ").append(mainPlace).append(", ");
+        Verb mainAction = (Verb)elements.get("mainAction");
+        sb.append(mainCharacter.areMany() ? mainAction.getImperfectoPlural() : mainAction.getImperfecto()).append(" ");
+        StoryObject mainObject = (StoryObject)elements.get("mainObject");
+        sb.append(mainObject.getUnityPronoun()).append(" ").append(mainObject).append(". ");
+        sb.append((String)elements.get("transition")).append(" ");
+        sb.append(mainObject.getDistantPronoun()).append(" ").append(mainObject).append(" ");
+        sb.append(mainObject.areMany() ? "eran" : "era").append(" ");
+        sb.append(mainObject.getAdjectiveString()).append(" ");
+        sb.append("y por ende, ");//TODO
+        Verb twistAction = (Verb)elements.get("twistAction");
+        sb.append(mainObject.areMany() ? twistAction.getSimplePlural():twistAction.getSimple());
+        //TODO -> un/una unos/unas mesas/sillas/autitos...
+        sb.append(".");
+        generatedStory = sb.toString();
+    }
+
+    ///Prepare and returns all the elements that will be used in the story.
+    private Map<String, Object> getNewStoryElements(){
+        Map<String, Object> elements = new HashMap<>();
+
+        String storyTime = times[random.nextInt(times.length)];
+        elements.put("time", storyTime);
 
         Character mainCharacter = getRandomCharacter();
-        Adjective mainCharacterAdjective = adjectiveManager.getRandomAdjective(mainCharacter);
+        mainCharacter.setAdjective(adjectiveManager.getRandomAdjective(mainCharacter));
+        elements.put("mainCharacter", mainCharacter);
 
         Place mainPlace = places[random.nextInt(places.length)];
+        elements.put("mainPlace", mainPlace);
 
         Verb mainAction = verbManager.getRandomVerb();
+        elements.put("mainAction", mainAction);
 
-        sb.append(time).append(",");
-        sb.append(" ").append(mainCharacter.getUnityPronoun()).append(" ").append(mainCharacter);
-        sb.append(" ").append(mainCharacterAdjective);
-        sb.append(" en ").append(mainPlace.getSingularPronoun()).append(" ").append(mainPlace);
-        if(mainCharacter.areMany()){
-            sb.append(", ").append(mainAction.getImperfectoPlural());
-        }else{
-            sb.append(", ").append(mainAction.getImperfecto());
-        }
+        StoryObject mainObject = objects[random.nextInt(objects.length)];
+        mainObject.setAdjective(adjectiveManager.getRandomAdjective(mainObject));
+        elements.put("mainObject", mainObject);
 
-        generatedStory = sb.toString();
+        String transition = transitions[random.nextInt(transitions.length)];
+        elements.put("transition", transition);
+
+        Verb twistAction = verbManager.getRandomVerb();
+        elements.put("twistAction", twistAction);
+
+        return elements;
     }
 
     private Character getRandomCharacter(){
         if(characters.length == 0){throw new RuntimeException("Cant get a character because the list is empty.");}
         return characters[random.nextInt(characters.length)];
+    }
+
+    private StoryObject getRandomObject(){
+        if(objects.length == 0){throw new RuntimeException("Cant get an object because the list is empty.");}
+        return objects[random.nextInt(objects.length)];
+    }
+
+    private String getRandomTransition(){
+        if(transitions.length == 0){throw new RuntimeException("Cant get a transition because the list is empty.");}
+        return transitions[random.nextInt(transitions.length)];
     }
 
     public void addStatusListener(StoryStatusListener l){

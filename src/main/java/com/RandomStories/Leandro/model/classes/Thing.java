@@ -1,13 +1,14 @@
 package com.RandomStories.Leandro.model.classes;
 
 import com.RandomStories.Leandro.model.enumerators.Gender;
+import com.RandomStories.Leandro.model.exceptions.NullValueException;
 
 public abstract class Thing {
     protected String name;
     protected Gender gender;
-    protected String adjective;
+    protected Adjective adjective;
 
-    public Thing(String thingName, Gender thingGender, String adjective){
+    public Thing(String thingName, Gender thingGender, Adjective adjective){
         this.name = thingName;
         this.gender = thingGender;
         this.adjective = adjective;
@@ -16,11 +17,7 @@ public abstract class Thing {
     public Thing(String thingName, Gender thingGender){
         this.name = thingName;
         this.gender = thingGender;
-        adjective = "";
-    }
-
-    public void setAdjective(String adj){
-        adjective = adj;
+        adjective = null;
     }
 
     public String toString(){
@@ -35,8 +32,29 @@ public abstract class Thing {
         return gender;
     }
 
-    public String getAdjective(){
+    public String getAdjectiveString(){
+        if(this.adjective == null){
+            throw new NullValueException("Se intentó obtener un adjetivo antes de que este sea inicializado. Utilice setAdjective() primero.");
+        }
+        return adjective.toString();
+    }
+
+    public Adjective getAdjective(){
+        if(this.adjective == null){
+            throw new NullValueException("Se intentó obtener un adjetivo antes de que este sea inicializado. Utilice setAdjective() primero.");
+        }
         return adjective;
+    }
+
+    public void setAdjective(Adjective adj){
+        checkGenderCompatibility(adj);
+        this.adjective = adj;
+    }
+
+    private void checkGenderCompatibility(Adjective adj)throws IllegalArgumentException {
+        if(adj.getGender() != this.gender){
+            throw new IllegalArgumentException("No se puede aplicar un adjetivo de género "+adj.getGender()+" a algo de género "+this.gender+".");
+        }
     }
 
     public abstract String getUnityPronoun();
