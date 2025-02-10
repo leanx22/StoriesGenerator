@@ -2,6 +2,8 @@ package com.RandomStories.Leandro.model.classes;
 
 import com.RandomStories.Leandro.model.enumerators.Gender;
 
+import java.util.Objects;
+
 public class StoryObject extends Thing{
     protected boolean areMany;
 
@@ -51,5 +53,12 @@ public class StoryObject extends Thing{
             return super.gender == Gender.MALE ? "aquel" : "aquella";
         }
         return super.gender == Gender.MALE ? "aquellos" : "aquellas";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj){return true;}
+        if (obj == null || getClass() != obj.getClass()) return false;
+        return this.name == ((StoryObject) obj).name;
     }
 }

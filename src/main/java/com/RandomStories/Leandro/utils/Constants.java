@@ -12,6 +12,7 @@ public final class Constants {
     public static final String TIMES_FILE_PATH = "./resources/generation/time.json";
     public static final String VERBS_FILE_PATH = "./resources/generation/actions/verbs.json";
     public static final String TRANSITIONS_FILE_PATH = "./resources/generation/connectors/story_transitions.json";
+    public static final String FINAL_TRANSITIONS_FILE_PATH = "./resources/generation/connectors/final_transitions.json";
 
     public static final int DISPLAY_DRAW_TIME = 25;
     public static final String DISPLAY_WELCOME_TEXT = "Bienvenido al generador de historias!";

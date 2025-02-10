@@ -5,6 +5,7 @@ import com.RandomStories.Leandro.controller.VerbsManager;
 import com.RandomStories.Leandro.model.classes.*;
 import com.RandomStories.Leandro.model.classes.Character;
 import com.RandomStories.Leandro.model.enumerators.GeneratorStatus;
+import com.RandomStories.Leandro.utils.Constants;
 import com.RandomStories.Leandro.utils.FileUtils;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class StoryGenerator implements Runnable{
     private Adjective[] adjectives;
     private String[] times;
     private String[] transitions;
+    private String[] finalTransitions;
 
     private StoryGenerator(){
         listeners = new ArrayList<>();
@@ -51,8 +53,9 @@ public class StoryGenerator implements Runnable{
             if(places == null){places = FileUtils.getPlaces();}
             if(objects == null){objects = FileUtils.getObjects();}
             if(adjectives == null){adjectives = FileUtils.getAdjectives();}
-            if(times == null){times = FileUtils.getTimes();}
-            if(transitions == null){transitions = FileUtils.getTransitions();}
+            if(times == null){times = FileUtils.getStringListFromJSON(Constants.TIMES_FILE_PATH);}
+            if(transitions == null){transitions = FileUtils.getStringListFromJSON(Constants.TRANSITIONS_FILE_PATH);}
+            if(finalTransitions == null){finalTransitions = FileUtils.getStringListFromJSON(Constants.FINAL_TRANSITIONS_FILE_PATH);}
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -77,22 +80,29 @@ public class StoryGenerator implements Runnable{
         Map<String, Object> elements = getNewStoryElements();
 
         sb.append((String)elements.get("time")).append(", ");
+
         Character mainCharacter = (Character)elements.get("mainCharacter");
         sb.append(mainCharacter.getUnityPronoun()).append(" ").append(mainCharacter).append(" ").append(mainCharacter.getAdjectiveString());
+
         Place mainPlace = (Place)elements.get("mainPlace");
         sb.append(" en ").append(mainPlace.getUnityPronoun()).append(" ").append(mainPlace).append(", ");
+
         Verb mainAction = (Verb)elements.get("mainAction");
         sb.append(mainCharacter.areMany() ? mainAction.getImperfectoPlural() : mainAction.getImperfecto()).append(" ");
+
         StoryObject mainObject = (StoryObject)elements.get("mainObject");
         sb.append(mainObject.getUnityPronoun()).append(" ").append(mainObject).append(". ");
         sb.append((String)elements.get("transition")).append(" ");
         sb.append(mainObject.getDistantPronoun()).append(" ").append(mainObject).append(" ");
         sb.append(mainObject.areMany() ? "eran" : "era").append(" ");
         sb.append(mainObject.getAdjectiveString()).append(" ");
-        sb.append("y por ende, ");//TODO
+        sb.append("y").append(", ").append(elements.get("finalTransition")).append(", ");
+
         Verb twistAction = (Verb)elements.get("twistAction");
-        sb.append(mainObject.areMany() ? twistAction.getSimplePlural():twistAction.getSimple());
-        //TODO -> un/una unos/unas mesas/sillas/autitos...
+        sb.append(mainObject.areMany() ? twistAction.getSimplePlural():twistAction.getSimple()).append(" ");
+
+        StoryObject twistObject = (StoryObject) elements.get("twistObject");
+        sb.append(twistObject.getUnityPronoun()).append(" ").append(twistObject).append(" ").append(twistObject.getAdjectiveString());
         sb.append(".");
         generatedStory = sb.toString();
     }
@@ -121,8 +131,18 @@ public class StoryGenerator implements Runnable{
         String transition = transitions[random.nextInt(transitions.length)];
         elements.put("transition", transition);
 
+        String finalTransition = finalTransitions[random.nextInt(finalTransitions.length)];
+        elements.put("finalTransition", finalTransition);
+
         Verb twistAction = verbManager.getRandomVerb();
         elements.put("twistAction", twistAction);
+
+        StoryObject twistObject = objects[random.nextInt(objects.length)];
+        while(mainObject.equals(twistObject)){
+            twistObject = objects[random.nextInt(objects.length)];
+        }
+        twistObject.setAdjective(adjectiveManager.getRandomAdjective(twistObject));
+        elements.put("twistObject", twistObject);
 
         return elements;
     }

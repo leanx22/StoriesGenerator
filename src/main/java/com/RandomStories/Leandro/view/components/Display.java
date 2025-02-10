@@ -8,6 +8,8 @@ import java.awt.*;
 public class Display extends JComponent{
     JTextArea textArea;
     JScrollPane scrollPane;
+    private Thread animationThread;
+    private volatile boolean animationInterruptionFlag = false;
 
     public Display(){
         this.setLayout(new BorderLayout());
@@ -27,21 +29,38 @@ public class Display extends JComponent{
         this.add(scrollPane, BorderLayout.CENTER);
     }
 
-    public void print(String text){
+
+    public void print(String text) {
+        // Si hay un hilo en ejecución
+        if (animationThread != null && animationThread.isAlive()) {
+            animationInterruptionFlag = false; // Pido al hilo que se detenga
+            try {
+                animationThread.join(); // Espero a que termine
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+
         textArea.setText("");
-        Thread animationThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for(char c: text.toCharArray()){
-                    SwingUtilities.invokeLater(()->{textArea.append(String.valueOf(c));});
-                    try{
-                        Thread.sleep(Constants.DISPLAY_DRAW_TIME);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+        animationInterruptionFlag = true;
+
+        animationThread = new Thread(() -> {
+            for (char c : text.toCharArray()) {
+                if (!animationInterruptionFlag) { //Verifico si se pidió la interrupción
+                    return;
+                }
+
+                SwingUtilities.invokeLater(() -> textArea.append(String.valueOf(c)));
+
+                try {
+                    Thread.sleep(Constants.DISPLAY_DRAW_TIME);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
                 }
             }
         });
+
         animationThread.start();
     }
 }

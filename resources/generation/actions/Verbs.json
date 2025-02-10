@@ -13,7 +13,6 @@
   {"infinitivo": "vender", "simple": "vendió", "simplePlural": "vendieron", "imperfecto": "vendía"},
   {"infinitivo": "preparar", "simple": "preparó", "simplePlural": "prepararon", "imperfecto": "preparaba"},
   {"infinitivo": "cocinar", "simple": "cocinó", "simplePlural": "cocinaron", "imperfecto": "cocinaba"},
-  {"infinitivo": "viajar", "simple": "viajó", "simplePlural": "viajaron", "imperfecto": "viajaba"},
   {"infinitivo": "limpiar", "simple": "limpió", "simplePlural": "limpiaron", "imperfecto": "limpiaba"},
   {"infinitivo": "tomar", "simple": "tomó", "simplePlural": "tomaron", "imperfecto": "tomaba"}
 ]

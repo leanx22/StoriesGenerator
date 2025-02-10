@@ -63,18 +63,6 @@ public final class FileUtils {
         }
     }
 
-    public static String[] getTimes() throws IOException{
-        try(Reader reader = new FileReader(Constants.TIMES_FILE_PATH)){
-            Gson gson = new Gson();
-            Type listType = new TypeToken<List<String>>(){}.getType();
-
-            List<String> times = gson.fromJson(reader, listType);
-            return times.toArray(new String[0]);
-        }catch (IOException e){
-            throw new IOException("No se pudo cargar los tiempos!");
-        }
-    }
-
     public static Verb[] getVerbs() throws IOException{
         try(Reader reader = new FileReader(Constants.VERBS_FILE_PATH)){
             Gson gson = new Gson();
@@ -87,15 +75,15 @@ public final class FileUtils {
         }
     }
 
-    public static String[] getTransitions() throws IOException{
-        try(Reader reader = new FileReader(Constants.TRANSITIONS_FILE_PATH)){
+    public static String[] getStringListFromJSON(String path) throws IOException{
+        try(Reader reader = new FileReader(path)){
             Gson gson = new Gson();
             Type listType = new TypeToken<List<String>>(){}.getType();
 
-            List<String> transitions = gson.fromJson(reader, listType);
-            return transitions.toArray(new String[0]);
+            List<String> elements = gson.fromJson(reader, listType);
+            return elements.toArray(new String[0]);
         }catch (IOException e){
-            throw new IOException("No se pudo cargar las transiciones!");
+            throw new IOException("No se pudo transformar el contenido del JSON a un listado de Strings!");
         }
     }
 
