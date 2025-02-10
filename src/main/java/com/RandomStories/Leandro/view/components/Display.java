@@ -23,7 +23,10 @@ public class Display extends JComponent{
         this.textArea.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
         this.textArea.setLineWrap(true);
         this.textArea.setWrapStyleWord(true);
-        //this.textArea.setEnabled(false);
+        this.textArea.setEnabled(false);
+
+        this.textArea.setDisabledTextColor(Color.BLACK);
+        textArea.setFont(textArea.getFont().deriveFont(18f));
 
         this.scrollPane = new JScrollPane(textArea);
         this.add(scrollPane, BorderLayout.CENTER);
@@ -63,4 +66,9 @@ public class Display extends JComponent{
 
         animationThread.start();
     }
+
+    public String getDisplayContent(){
+        return this.textArea.getText();
+    }
+
 }

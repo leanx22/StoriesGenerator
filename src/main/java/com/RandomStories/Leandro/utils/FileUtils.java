@@ -2,13 +2,13 @@ package com.RandomStories.Leandro.utils;
 
 import com.RandomStories.Leandro.model.classes.*;
 import com.RandomStories.Leandro.model.classes.Character;
+import com.RandomStories.Leandro.view.components.Display;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.util.List;
 
 public final class FileUtils {
@@ -86,5 +86,4 @@ public final class FileUtils {
             throw new IOException("No se pudo transformar el contenido del JSON a un listado de Strings!");
         }
     }
-
 }
