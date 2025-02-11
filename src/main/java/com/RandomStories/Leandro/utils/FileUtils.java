@@ -2,13 +2,11 @@ package com.RandomStories.Leandro.utils;
 
 import com.RandomStories.Leandro.model.classes.*;
 import com.RandomStories.Leandro.model.classes.Character;
-import com.RandomStories.Leandro.view.components.Display;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.net.URL;
 import java.util.List;
 
 public final class FileUtils {
