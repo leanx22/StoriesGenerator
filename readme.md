@@ -1,5 +1,5 @@
 ## Generador de historias aleatorias
-Aprendiendo Java decidí llevar a cabo este pequeño proyecto. Se trata de un generador que crea historias con datos preestablecidos. Si bien no siempre las historias tendrán sentido (aunque en alguna que otra iteración lo tendrá y será bastante divertida [todo a manos del azar]) lo importante es tener en cuenta la estructura del proyecto y mi solución a las distintas problemáticas que se me presentaron durante el desarrollo.
+Aprendiendo Java decidí llevar a cabo este pequeño proyecto. Se trata de un generador que crea historias con datos preestablecidos, con una interfaz gráfica construida en swing. Si bien no siempre las historias tendrán sentido (aunque en alguna que otra iteración lo tendrá y será bastante divertida [todo a manos del azar]) lo importante es tener en cuenta la estructura del proyecto y mi solución a las distintas problemáticas que se me presentaron durante el desarrollo.
 
 ---
 #### De una aplicación sencilla a algo más complejo
@@ -18,7 +18,7 @@ Si leemos estos archivos y, acomodamos sus contenidos en Listas para luego selec
 
 Y eso está genial, todo parece funcionar hasta que nos topamos con algo como esto:
 
-> Unos meses atrás, una hechicera orgulloso...
+> Unos meses atrás, un hechicera orgulloso...
 
 Acá ya somos capaces de ver la limitación de esta implementación de concatenación aleatoria, y esto no es nada, qué tal si agregamos personajes como "Perros, Aventureros" o cualquier cosa que consideremos "muchas" o "varias", estaríamos obteniendo algo como:
 
@@ -49,7 +49,7 @@ Se sobrescribe el método toString() para retornar el nombre de la *cosa*. Tambi
 
 [IMAGEN DE THINGCREATION2 Y 3]
 
-## Adjective class
+## Adjective class & AdjectiveManager
 La clase que representa a los adjetivos, **no** hereda de ninguna otra clase. Tiene como atributos:
 
  - name (string)
@@ -57,7 +57,7 @@ La clase que representa a los adjetivos, **no** hereda de ninguna otra clase. Ti
  - gender (enum)
  - pluralRule (enum)
 
-Los adjetivos se obtienen desde el archivo **adjectives.json** donde hay una lista con varios de los mismos, donde se especifica su regla para convertirlos en plural y su forma irregular en caso de tenerla:
+Los adjetivos se obtienen desde el archivo **adjectives.json** donde hay una lista con varios de los mismos, donde se especifica su regla para convertirlos en plural y su forma irregular en caso de tenerla, así como también su género:
 
     [
     	{"name": "brillante", "gender": "NO_GENDER", "pluralRule": "S"},
@@ -66,7 +66,7 @@ Los adjetivos se obtienen desde el archivo **adjectives.json** donde hay una lis
     	{"name": "feliz", "gender": "NO_GENDER", "pluralRule": "IRREGULAR", "irregularPluralForm": "felices"}
     	...
     ]
-Estos adjetivos son leídos, ordenados y guardados en listas dentro de la clase **AdjectiveManager** la cual se encarga de proveer de adjetivos a los objetos que lo necesiten con las características pedidas. Por ejemplo, la clase **AdjectiveManager** posee un método llamado getRandomAdjective() que toma como parámetro a un **StoryObject**, este método accederá a su género y retornará un adjetivo adecuado para el objeto, al cual se lo podremos aplicar con el método setAdjective() heredado de **Thing**.
+Estos adjetivos son leídos, ordenados y guardados en listas dentro de la clase **AdjectiveManager** la cual se encarga de proveer de adjetivos a los objetos que lo necesiten con las características solicitadas. Por ejemplo, la clase **AdjectiveManager** posee un método llamado getRandomAdjective() que toma como parámetro a un **StoryObject**, este método accederá a su género y retornará un adjetivo adecuado para el objeto, al cual se lo podremos aplicar con el método setAdjective() heredado de **Thing**.
 Con esto, por fin una generación errónea como esta:
 
 > Hace cien años, un **princesas bonito**...
@@ -79,4 +79,48 @@ Pero, *bonita* debería ser *bonitas*, ¿verdad? Para solucionar esto, agregué 
 > Resumiendo todo de forma más fácil (o difícil): Se lee el **JSON**, se guardan los adjetivos en distintas  listas (según su género) de la clase **AdjectiveManager**, llamamos al método **getRandomAdjective(myStoryObject)** y le pasamos como parámetro el objeto al que le queremos aplicar este adjetivo.El adjetivo que nos retornará **getRandomAdjective()** lo seteamos con **myStoryObject.setAdjective()**. Quedando así un **StoryObject** que puede ser, por ejemplo, computadoras, con el adjetivo **potente**, pero cuando lo necesitemos, utilizamos **myStoryObject.getAdjective().getPlural()** y nos quedará "computadoras **potentes**".
 
 ## StoryObject
-Heredando de **Thing** tenemos a la clase **StoryObject**, la cual representaría a cualquier objeto "tangible" de la historia, como podría serlo una pelota, un auto, un astronauta, etc. Es en esta clase donde comienza a aparecer el atributo **areMany** con el cual puedo verificar si el objeto en realidad se trata de **varios** objetos.
+Heredando de **Thing** tenemos a la clase **StoryObject**, la cual representaría a cualquier objeto "tangible" de la historia, como podría serlo una pelota, un auto, un astronauta, etc. Es en esta clase donde comienza a aparecer el atributo **areMany** con el cual puedo verificar si el objeto en realidad se trata de **varios** objetos. Además es obligatorio desarrollar los métodos abstractos de la clase **Thing**, que **retornaran los pronombres correspondientes teniendo en cuenta el género del objeto y el valor de la variable areMany**:
+
+ - **getUnityPronoun()**
+	 Que me retornará  **"un / una"** o **"unos / unas"**
+
+ - **getSingularPronoun()**
+ Retorna **"el / la"** según género.
+
+ - **getPluralPronoun()**
+Devolverá **"los / las"**.
+
+ - **getDistantPronoun()**
+Devuelve **"Aquel / Aquella"** o **"Aquellos / Aquellas "** según corresponda.
+
+Por último, sobrescribí **equals()** para que sólo sea comparable con otro storyObject y que además, sean iguales si tienen el mismo nombre.
+
+[IMAGEN DE STORYOBJECT EXPLANATION 01]
+
+Con esto, logramos otro avance a la hora de generar la historia, ya que podremos referirnos al personaje u objeto generado de manera correcta.
+Pasando de algo como esto:
+
+> Hace millones de años, **un** princesa bonita...
+
+a esto:
+
+> Hace millones de años, **una** princesa bonita... Pero un día **aquella** princesa...
+
+## Verbs & VerbManager
+Otro elemento de suma importancia a la hora de contar un relato, son los **verbos**. La implementación es tan simple como guardar los verbos en un archivo json con sus diferentes variables que pueden necesitarse al momento de una generación:
+
+    [  
+      {"infinitivo": "buscar", "simple": "buscó", "simplePlural": "buscaron", "imperfecto": "buscaba"},  
+      {"infinitivo": "correr", "simple": "corrió", "simplePlural": "corrieron", "imperfecto": "corría"},  
+      {"infinitivo": "asesinar", "simple": "asesinó", "simplePlural": "asesinaron", "imperfecto": "asesinaba"}
+      ...
+    ]
+Y crear una clase **Verb** con los correspondientes **getX()**
+
+[IMAGEN DE LA CLASE VERB CON SUS GETS]
+
+Por último, creé una clase **VerbManager** que guardará todos los verbos en una lista interna y podremos llamar a su método **getRandomVerb()** para obtener un elemento cuando sea necesario, y luego utilizar los métodos **get()** de cada verbo para obtener el "tipo" que necesitemos.
+
+## StoryGenerator
+
+Una clase que implementa **Runnable**. Encargada de cargar todos los elementos e inicializar todo lo necesario para la generación de la historia (sólo lo hace si no se hizo previamente). Cuenta con el método **createStory()** el cual, por medio de un String builder construirá la historia concatenando los elementos seleccionados de forma aleatoria.
